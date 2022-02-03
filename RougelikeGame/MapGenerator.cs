@@ -10,7 +10,7 @@ namespace RougelikeGame
         public Room endRoom;
 
         public List<Room> myRooms;
-        public int roomCount = 10;
+        public int roomCount = 1;
 
         public MapGenerator()
         {

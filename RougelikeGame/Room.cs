@@ -12,7 +12,6 @@ namespace RougelikeGame
             //Room properties
             public int width;
             public int height;
-
             //drawing start pos
             public int x, y;
 
@@ -39,7 +38,7 @@ namespace RougelikeGame
 
             void SetupRoomLayout()
             {
-                string wall = "O";
+                string wall = "#";
                 string floor = "-";
                 string EOL = "\n";
 

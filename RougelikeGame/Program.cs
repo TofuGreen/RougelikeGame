@@ -6,12 +6,16 @@ namespace RougelikeGame
     {
         static MapGenerator roomManager;
 
-
+        static Player player;
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            player = new Player();
+            player.gameRunning = true;
+            
+            //Console.WriteLine("Hello World!");
             //master test 2 now doing the stream to show this off branching test
             roomManager = new MapGenerator();
+            player.Movement();
             //roomManager.RoomInit();
         }
 
