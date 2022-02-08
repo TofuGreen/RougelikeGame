@@ -19,7 +19,7 @@ namespace RougelikeGame
 
             //visual representation
             public string roomLayout = "";
-
+            public Player player = new Player();
             //imagine a lot more content
             public void RandomiseRoom(string name, int widthMin, int widthMax, int heightMin, int heightMax)
             {
@@ -32,7 +32,7 @@ namespace RougelikeGame
 
                 //Console.WriteLine();
                 Console.WriteLine("name: " + this.name + " => " + "width: " + this.width + " || " + "height: " + this.height);
-
+                player.currentRoomArray = new int[this.width,this.height];
                 SetupRoomLayout();
             }
 
@@ -50,15 +50,17 @@ namespace RougelikeGame
                         if (i == 0 || i == height - 1)
                         {
                             roomLayout += wall;
+                            player.currentRoomArray[i, j] = 1;
                             continue;
                         }
 
                         if (j == 0 || j == width - 1)
                         {
                             roomLayout += wall;
+                            player.currentRoomArray[i, j] = 1;
                             continue;
                         }
-
+                        player.currentRoomArray[i,j] = 2;
                         roomLayout += floor;
                     }
                     roomLayout += EOL;
