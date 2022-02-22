@@ -7,5 +7,10 @@ namespace RougelikeGame
     class Armour : Item
     {
         int defence;
+
+        void Defence()
+        {
+
+        }
     }
 }
