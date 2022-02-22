@@ -50,17 +50,17 @@ namespace RougelikeGame
                         if (i == 0 || i == height - 1)
                         {
                             roomLayout += wall;
-                            player.currentRoomArray[i, j] = 1;
+                           
                             continue;
                         }
 
                         if (j == 0 || j == width - 1)
                         {
                             roomLayout += wall;
-                            player.currentRoomArray[i, j] = 1;
+                            
                             continue;
                         }
-                        player.currentRoomArray[i,j] = 2;
+                        
                         roomLayout += floor;
                     }
                     roomLayout += EOL;
