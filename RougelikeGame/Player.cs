@@ -25,21 +25,26 @@ namespace RougelikeGame
                 {
                     case ConsoleKey.UpArrow:
                         prevY = y;
+                        prevX = x;
                         y--;
                         break;
                     case ConsoleKey.DownArrow:
                         prevY = y;
+                        prevX = x;
                         y++;
                         break;
                     case ConsoleKey.LeftArrow:
                         prevX = x;
+                        prevY = y;
                         x--;
                         break;
                     case ConsoleKey.RightArrow:
                         prevX = x;
+                        prevY = y;
                         x++;
                         break;
                 }
+                WriteCharacter(blank, prevX, prevY);
                 WriteCharacter(character, x, y);
             }
         }
@@ -50,7 +55,6 @@ namespace RougelikeGame
             {
                 if(x >= 0 || y >= 0)
                 {
-                    
                     Console.SetCursorPosition(x, y);
                     Console.Write(character);
 

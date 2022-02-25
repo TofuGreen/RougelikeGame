@@ -14,7 +14,7 @@ namespace RougelikeGame
             
             //Console.WriteLine("Hello World!");
             //master test 2 now doing the stream to show this off branching test
-            roomManager = new MapGenerator();
+            //roomManager = new MapGenerator();
             player.Movement();
             //roomManager.RoomInit();
         }
