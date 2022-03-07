@@ -12,7 +12,6 @@ namespace RougelikeGame
         static char blank = ' ';
         public static int prevX;
         public static int prevY;
-        public int[,] currentRoomArray;
         public void Movement()
         {
             int x = 0;

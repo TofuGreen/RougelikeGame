@@ -32,7 +32,7 @@ namespace RougelikeGame
 
                 //Console.WriteLine();
                 Console.WriteLine("name: " + this.name + " => " + "width: " + this.width + " || " + "height: " + this.height);
-                player.currentRoomArray = new int[this.width,this.height];
+                //player.currentRoomArray = new int[this.width,this.height];
                 SetupRoomLayout();
             }
 
