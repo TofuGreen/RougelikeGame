@@ -10,6 +10,8 @@ namespace RougelikeGame
         public static string currentpossymbol;
         public static char character = '@';
         static char blank = ' ';
+        public static int x;
+        public static int y;
         public static int prevX;
         public static int prevY;
         public static int prevArrayValue;
@@ -17,70 +19,82 @@ namespace RougelikeGame
         public MapGenerator2 mapGen;
         bool canMove;
         ConsoleColor colour ;
+
+        //Inventory and stats
+        public int health = 10;
+        public string weapon = "Fists";
+        public int coins = 0;
+        public int healthItems = 0;
         public void Movement()
         {
-            int x = mapGen.startX;
-            int y = mapGen.startY;
+            
+            x = mapGen.startX;
+            y = mapGen.startY;
             colour = ConsoleColor.White;
             WriteCharacter(character, x, y, colour);
-            while(gameRunning == true)
-            {
-                var key = Console.ReadKey().Key;
-                switch (key)
+            while (gameRunning == true)
                 {
-                    case ConsoleKey.UpArrow:
-                        if (mapGen.map[x, y-1] != 1)
+                DisplayStats();
+                var key = Console.ReadKey().Key;
+                if (key == ConsoleKey.UpArrow) {
+                    if (mapGen.map[x, y - 1] == 0)
                         {
-                            canMove = true;
-                            prevY = y;
-                            prevX = x;
-                            y--;
+                        canMove = true;
+                        prevY = y;
+                        prevX = x;
+                        y--;
+                        Interaction();
                         }
-                        else
+                    else
                         {
-                            canMove = false;
+                        canMove = false;
                         }
-                        break;
-                    case ConsoleKey.DownArrow:
-                        if (mapGen.map[x, y+1] != 1)
+                    }
+
+                if (key == ConsoleKey.DownArrow) {
+                    if (mapGen.map[x, y + 1] == 0)
                         {
-                            canMove = true;
-                            prevY = y;
-                            prevX = x;
-                            y++;
-                        }
-                        else
+                        canMove = true;
+                        prevY = y;
+                        prevX = x;
+                        y++;
+                        Interaction();
+                    }
+                    else
                         {
-                            canMove = false;
+                        canMove = false;
                         }
-                        break;
-                    case ConsoleKey.LeftArrow:
-                        if (mapGen.map[x-1, y] != 1)
+                    }
+                if (key == ConsoleKey.LeftArrow) {
+                    if (mapGen.map[x - 1, y] == 0)
                         {
-                            canMove = true;
-                            prevX = x;
-                            prevY = y;
-                            x--;
-                        }
-                        else
+                        canMove = true;
+                        prevX = x;
+                        prevY = y;
+                        x--;
+                        Interaction();
+                    }
+                    else
                         {
-                            canMove = false;
+                        canMove = false;
                         }
-                        break;
-                    case ConsoleKey.RightArrow:
-                        if (mapGen.map[x+1, y] == 0)
-                        {
-                            canMove = true;
-                            prevX = x;
-                            prevY = y;
-                            x++;
-                        }
-                        else
-                        {
-                            canMove = false;
-                        }
-                        break;
                 }
+                if(key == ConsoleKey.RightArrow){
+                    if (mapGen.map[x + 1, y] == 0)
+                        {
+                        canMove = true;
+                        prevX = x;
+                        prevY = y;
+                        x++;
+                        Interaction();
+                    }
+                    else
+                        {
+                        canMove = false;
+                        }
+                }
+
+
                 if(mapGen.map[prevX,prevY] == 1)
                 {
                     colour = ConsoleColor.White;
@@ -103,6 +117,12 @@ namespace RougelikeGame
                 }
             }
         }
+        public void DisplayStats()
+        {
+            Console.SetCursorPosition(0, 25);
+            Console.Write("Health:" + health + " weapon:" + weapon + " health potions:" + healthItems + " coins:" + coins);
+        }
+
 
         public static void WriteCharacter(char character, int x, int y, ConsoleColor colour)
         {
@@ -120,6 +140,20 @@ namespace RougelikeGame
             catch(Exception) { 
             }
         }
+        public void Interaction()
+        {
+            if (mapGen.map[x+1, y] == 2 || mapGen.map[x-1,y] == 2 || mapGen.map[x,y+1] == 2|| mapGen.map[x,y-1] == 2)
+            {
+                Console.SetCursorPosition(0,26);
+                Console.WriteLine("Snake");
 
-    }
+            }
+            else
+            {
+                Console.SetCursorPosition(0, 26);
+                Console.Write("                           ");
+            }
+        }
+
+   }
 }

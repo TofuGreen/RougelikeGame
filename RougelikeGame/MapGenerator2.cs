@@ -15,6 +15,8 @@ namespace RougelikeGame
         public int startX;
         public int startY;
         public static bool spawnPointSet = false;
+        public static int currentEnemyCount;
+        public static int enemyCount;
         bool endPointSet = false;
         ConsoleColor Lettercolour;
 
@@ -57,6 +59,7 @@ namespace RougelikeGame
                             int roomSizeX = rnd.Next(2, 15);
                             int roomArea = roomSizeX * roomSizeY;
                             int currentRoomArea = 0;
+                            enemyCount = rnd.Next(1, 2);
                             for (int i = 0; i <= roomSizeX; i++)
                             {
                                 for (int j = 0; j <= roomSizeY; j++)
@@ -68,24 +71,32 @@ namespace RougelikeGame
                                         {
                                             map[x + i, y + j] = 5;
                                             endPointSet = true;
+                                        }  
+                                        if (spawnPointSet == false)
+                                        {
+                                            startX = x;
+                                            startY = y;
+                                            spawnPointSet = true;
                                         }
-                                            
-                                            if (spawnPointSet == false)
+                                        if(currentEnemyCount < enemyCount)
+                                        {
+                                            int spawnEnemy = rnd.Next(1, 2);
+                                            if(spawnEnemy == 1)
                                             {
-                                                startX = x;
-                                                startY = y;
-                                                spawnPointSet = true;
+                                                map[x + i, y + j] = 2;
+                                                currentEnemyCount++;
                                             }
+                                        }
+                                        if (currentRoomArea < roomArea)
+                                        {
+                                            currentRoomArea++;
+                                        }
+                                        else
+                                        {
+                                            currentRoomArea = 0;
+                                            currentEnemyCount = 0;
 
-                                            if (currentRoomArea < roomArea)
-                                            {
-                                                currentRoomArea++;
-                                            }
-                                            else
-                                            {
-                                                currentRoomArea = 0;
-
-                                            }
+                                        }
                                         
                                     }
                                 }
@@ -129,6 +140,11 @@ namespace RougelikeGame
                     {
                         Lettercolour = ConsoleColor.Green;
                         character = '█';
+                    }
+                    if(map[x,y] == 2)
+                    {
+                        Lettercolour = ConsoleColor.Red;
+                        character = 'S';
                     }
                     WriteCharacter(character, posX, posY, Lettercolour);
                 }
