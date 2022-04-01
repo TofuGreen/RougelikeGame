@@ -14,10 +14,13 @@ namespace RougelikeGame
         public static int roomMaxCount;
         public int startX;
         public int startY;
+        public int enemyNumber = 0;
+        public Snake[] enemyArray = new Snake[50];
         public static bool spawnPointSet = false;
         public static int currentEnemyCount;
         public static int enemyCount;
         bool endPointSet = false;
+
         ConsoleColor Lettercolour;
 
 
@@ -37,12 +40,14 @@ namespace RougelikeGame
             //CreatePath();
             CreateRoom();
             DisplayMap();
+            SpawnSnakes();
         }
         public void CreateRoom()
         {
             Random rnd = new Random();
             int currentRoomCount = 0;
             int roomCount = 5;
+            enemyNumber = 0;
             int rngX = rnd.Next(0, 99);
             int rngY = rnd.Next(0, 24);
             while (currentRoomCount < roomCount)
@@ -83,8 +88,14 @@ namespace RougelikeGame
                                             int spawnEnemy = rnd.Next(1, 2);
                                             if(spawnEnemy == 1)
                                             {
-                                                map[x + i, y + j] = 2;
+                                                Snake enemy = new Snake();
+                                                enemyArray[enemyNumber] = enemy;
+                                                enemy.spawnX = x + i;
+                                                enemy.spawnY = y + j;
+                                                enemy.gameRunning = true;
+                                                
                                                 currentEnemyCount++;
+                                                enemyNumber++;
                                             }
                                         }
                                         if (currentRoomArea < roomArea)
@@ -112,8 +123,18 @@ namespace RougelikeGame
 
         }
 
+        public void SpawnSnakes()
+        {
 
-
+            for (int i = 0; i <= enemyArray.Length; i++)
+            {
+                Random rnd = new Random();
+                int direction = rnd.Next(1, 3);
+                enemyArray[i].Movement(direction,map);
+                
+            }
+                
+        }
 
 
         public void DisplayMap()

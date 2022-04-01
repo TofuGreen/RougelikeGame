@@ -16,9 +16,19 @@ namespace RougelikeGame
         public static int prevY;
         public static int prevArrayValue;
         char arrayCharacter;
-        public MapGenerator2 mapGen;
+        public MapGenerator3 mapGen;
         bool canMove;
         ConsoleColor colour ;
+
+        //Objects
+        static string[] objectArray = new string[4];
+        public void InitialiseObjects()
+        {
+            objectArray[0] = "Nothing";
+            objectArray[1] = "Wall";
+            objectArray[2] = "Snake";
+            objectArray[3] = "Bush";
+        }
 
         //Inventory and stats
         public int health = 10;
@@ -27,7 +37,6 @@ namespace RougelikeGame
         public int healthItems = 0;
         public void Movement()
         {
-            
             x = mapGen.startX;
             y = mapGen.startY;
             colour = ConsoleColor.White;
@@ -37,7 +46,7 @@ namespace RougelikeGame
                 DisplayStats();
                 var key = Console.ReadKey().Key;
                 if (key == ConsoleKey.UpArrow) {
-                    if (mapGen.map[x, y - 1] == 0)
+                    if (mapGen.map[x, y - 1] == 0 || mapGen.map[x, y - 1] == 3)
                         {
                         canMove = true;
                         prevY = y;
@@ -52,7 +61,7 @@ namespace RougelikeGame
                     }
 
                 if (key == ConsoleKey.DownArrow) {
-                    if (mapGen.map[x, y + 1] == 0)
+                    if (mapGen.map[x, y + 1] == 0 || mapGen.map[x, y + 1] == 3)
                         {
                         canMove = true;
                         prevY = y;
@@ -66,7 +75,7 @@ namespace RougelikeGame
                         }
                     }
                 if (key == ConsoleKey.LeftArrow) {
-                    if (mapGen.map[x - 1, y] == 0)
+                    if (mapGen.map[x - 1, y] == 0 || mapGen.map[x - 1, y] == 3)
                         {
                         canMove = true;
                         prevX = x;
@@ -80,7 +89,7 @@ namespace RougelikeGame
                         }
                 }
                 if(key == ConsoleKey.RightArrow){
-                    if (mapGen.map[x + 1, y] == 0)
+                    if (mapGen.map[x + 1, y] == 0 || mapGen.map[x + 1, y] == 3)
                         {
                         canMove = true;
                         prevX = x;
@@ -110,9 +119,15 @@ namespace RougelikeGame
                     colour = ConsoleColor.Green;
                     arrayCharacter = '█';
                 }
+                if(mapGen.map[prevX,prevY] == 3)
+                {
+                    colour = ConsoleColor.Green;
+                    arrayCharacter = '#';
+                }
                 if (canMove == true)
                 {
                     WriteCharacter(arrayCharacter, prevX, prevY, colour);
+                    colour = ConsoleColor.White;
                     WriteCharacter(character, x, y, colour);
                 }
             }
@@ -142,17 +157,30 @@ namespace RougelikeGame
         }
         public void Interaction()
         {
-            if (mapGen.map[x+1, y] == 2 || mapGen.map[x-1,y] == 2 || mapGen.map[x,y+1] == 2|| mapGen.map[x,y-1] == 2)
+            int textStart = 26;
+            int textEnd = textStart;
+            for (int i = 0; i < objectArray.Length; i++) 
             {
-                Console.SetCursorPosition(0,26);
-                Console.WriteLine("Snake");
+                if (mapGen.map[x + 1, y] == i || mapGen.map[x - 1, y] == i || mapGen.map[x, y + 1] == i || mapGen.map[x, y - 1] == i)
+                {
+                    Console.SetCursorPosition(0, textStart);
+                    Console.WriteLine(objectArray[i]);
+                    textStart++;
+                    textEnd = textStart;
+                }
+                else
+                {
+                    for (int j = 26; j < textEnd; j++)
+                    {
+                        Console.SetCursorPosition(0, j);
+                        Console.Write("                           ");
+                    }
+                }
+                textStart = 26;
+            }
+            
 
-            }
-            else
-            {
-                Console.SetCursorPosition(0, 26);
-                Console.Write("                           ");
-            }
+
         }
 
    }

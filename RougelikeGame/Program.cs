@@ -5,7 +5,7 @@ namespace RougelikeGame
     class Program
     {
         static MapGenerator roomManager;
-        static MapGenerator2 mapMaker;
+        static MapGenerator3 mapMaker;
         static Player player;
         static bool choiceChosen = false;
         static void Main(string[] args)
@@ -13,7 +13,7 @@ namespace RougelikeGame
             
             player = new Player();
             player.gameRunning = true;
-            mapMaker = new MapGenerator2();
+            mapMaker = new MapGenerator3();
             player.mapGen = mapMaker;
             MainMenu();
             //Console.WriteLine("Hello World!");
@@ -37,7 +37,9 @@ namespace RougelikeGame
                     Console.Clear();
                     Console.CursorVisible = false;
                     mapMaker.CreateMap();
+                    player.InitialiseObjects();
                     player.Movement();
+                    //mapMaker.SpawnSnakes();
                 }
                 else if (choice == "2")
                 {
