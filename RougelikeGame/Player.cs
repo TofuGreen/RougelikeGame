@@ -24,10 +24,8 @@ namespace RougelikeGame
         public bool fighting;
         public bool engaged;
         public bool playerTurn;
-        public bool dead = false;
         Random rnd = new Random();
-        //Objects
-        static string[] objectArray = new string[11];
+
 
         //Inventory and stats
         public int maxHealth;
@@ -41,12 +39,9 @@ namespace RougelikeGame
         public bool hasHealthUpgrade;
         public bool hasSword;
         public bool hasAxe;
-        public void InitialiseObjects()
+        public void InitialiseObjects()//Sets up default values
         {
             capy = mapGen.capy;
-            objectArray[2] = "Enemy";
-            objectArray[3] = "Bush";
-            objectArray[10] = "Capybara";
             colour = ConsoleColor.White;
             fighting = false;
             playerTurn = true;
@@ -56,7 +51,7 @@ namespace RougelikeGame
             coins = 0;
         }
 
-        public void Movement()
+        public void Movement()//Controls player movement along with other things such as changing weapon and pausing/saving
         {
 
             WriteCharacter(character, x, y, colour);
@@ -218,7 +213,7 @@ namespace RougelikeGame
                 }
                 if (canMove == true)
                 {
-                    WriteCharacter(arrayCharacter, prevX, prevY, colour);
+                    WriteCharacter(arrayCharacter, prevX, prevY, colour);//Puts back what was visible before the player was in that position
                     colour = ConsoleColor.White;
                     WriteCharacter(character, x, y, colour);
                 }
@@ -232,7 +227,7 @@ namespace RougelikeGame
                 }
             }
         }
-        public void DisplayStats()
+        public void DisplayStats()//Prints the information the player needs on the screeen (most likely overengineered)
         {
             Console.SetCursorPosition(101, 0);
             Console.Write("Stats: ");
@@ -297,11 +292,11 @@ namespace RougelikeGame
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 if(capy.requiredCoins == 0)
                 {
-                    Console.WriteLine("capyCoins: " + capyCoins + "/Unkown");
+                    Console.WriteLine("Capy Coins: " + capyCoins + "/Unkown");
                 }
                 else
                 {
-                    Console.WriteLine("capyCoins: " + capyCoins + "/" + capy.requiredCoins);
+                    Console.WriteLine("Capy Coins: " + capyCoins + "/" + capy.requiredCoins);
                 }
                 
             }
@@ -329,7 +324,7 @@ namespace RougelikeGame
             catch(Exception) { 
             }
         }
-        public void Fight()
+        public void Fight()//Controls fighting between the player and the enemy
         {
             if (Console.KeyAvailable)
             {
@@ -403,15 +398,28 @@ namespace RougelikeGame
                                 Console.SetCursorPosition(0, 25);
                                 Console.ForegroundColor = ConsoleColor.Blue;
                                 Console.WriteLine("You used a health potion!");
-                                Thread.Sleep(1000);
-                                fightingEnemy.Damage();
+
                             }
                             else
                             {
                                 Console.SetCursorPosition(0, 25);
+                                Console.ForegroundColor = ConsoleColor.Blue;
                                 Console.WriteLine("Health is max");
                             }
                         }
+                        else
+                        {
+                            playerTurn = false;
+                            fightingEnemy.enemyTurn = true;
+                            Console.SetCursorPosition(0, 25);
+                            Console.Write(new string(' ', Console.WindowWidth));
+                            Console.SetCursorPosition(0, 25);
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.WriteLine("You dont have any health potions!");
+                            
+                        }
+                        Thread.Sleep(1000);
+                        fightingEnemy.Damage();
                     }
                     if(key == ConsoleKey.Q)
                     {
@@ -460,7 +468,7 @@ namespace RougelikeGame
             }
         }
 
-        public void Interaction()
+        public void Interaction()//Controls what items the player should recieve when walking through the bushes
         {
 
             bool itemfound = false; ;
@@ -551,11 +559,18 @@ namespace RougelikeGame
                     Console.ForegroundColor = colour;
                     Console.Write(new string(' ', Console.WindowWidth));
                     Console.SetCursorPosition(0, 25);
-                    Console.WriteLine("You found a " + item + " in the bush!");
+                    if (item == "health trinket")
+                    {
+                        Console.WriteLine("You found a " + item + " in the bush! Your max health has doubled");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You found a " + item + " in the bush!");
+                    }
                 }
             }
         }
-        public void Engage(string item, ConsoleColor colour)
+        public void Engage(string item, ConsoleColor colour)//If the player finds a weapon they do not have this function will pause the game to allow the player to decide if they want to equip it
         {
             bool choiceChosen = false;
             Console.SetCursorPosition(0, 25);
@@ -621,7 +636,7 @@ namespace RougelikeGame
                 }
             }
         }
-        public void Quit()
+        public void Quit()//Returns the player to the main menu but saves the game first
         {
             bool choiceChosen = false;
             Console.SetCursorPosition(0, 25);
@@ -636,6 +651,7 @@ namespace RougelikeGame
                     Program.SaveGame();
                     Console.Clear();
                     mapGen.ClearRoom();
+                    Program.gameRunning = false;
                     Program.MainMenu();
                 }
                 if(key == ConsoleKey.N)

@@ -15,7 +15,7 @@ namespace RougelikeGame
         public MapGenerator3 map;
         public bool changingLevel;
         Random rnd = new Random();
-        public void MissionText()
+        public void MissionText()//Displays the text for the current mission (Wanted to add more but I couldnt think of any)
         {
             switch (level) 
             {
@@ -30,7 +30,7 @@ namespace RougelikeGame
                     break;
             }
         }
-        public void Mission()
+        public void Mission()//Checks if the player has completed the quest and if so starts the next level
         {
             switch (level)
             {
@@ -57,7 +57,7 @@ namespace RougelikeGame
             }
             
         }
-        public void ChangeLevel()
+        public void ChangeLevel()//Removes the current level and starts the next one
         {
             Console.SetCursorPosition(0, 26);
             Console.ForegroundColor = ConsoleColor.DarkGreen;

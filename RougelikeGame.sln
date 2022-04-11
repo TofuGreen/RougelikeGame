@@ -3,18 +3,30 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RougelikeGame", "RougelikeGame\RougelikeGame.csproj", "{147A8ACF-E9BF-4026-B757-A2C9323F05DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RougelikeGame", "RougelikeGame\RougelikeGame.csproj", "{147A8ACF-E9BF-4026-B757-A2C9323F05DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Test1|Any CPU = Test1|Any CPU
+		Test1|x64 = Test1|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Debug|x64.ActiveCfg = Debug|x64
+		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Debug|x64.Build.0 = Debug|x64
+		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Release|Any CPU.ActiveCfg = Release|x64
+		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Release|Any CPU.Build.0 = Release|x64
+		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Release|x64.ActiveCfg = Release|x64
+		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Release|x64.Build.0 = Release|x64
+		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Test1|Any CPU.ActiveCfg = Test1|Any CPU
+		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Test1|Any CPU.Build.0 = Test1|Any CPU
+		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Test1|x64.ActiveCfg = Test1|x64
+		{147A8ACF-E9BF-4026-B757-A2C9323F05DE}.Test1|x64.Build.0 = Test1|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

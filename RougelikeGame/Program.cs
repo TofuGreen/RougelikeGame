@@ -13,7 +13,6 @@ namespace RougelikeGame
         public static bool gameRunning;
         public static int enemyCount;
         public static bool changingLevel;
-        static Random rnd = new Random();
         public const string pathWithEnv = @"%USERPROFILE%\AppData\Local\TextGameAgain\SaveFile\";
         public static string filePath = Environment.ExpandEnvironmentVariables(pathWithEnv);
         static void Main(string[] args)
@@ -27,9 +26,12 @@ namespace RougelikeGame
             capy.map = mapMaker;
             gameRunning = false;
             mapMaker.loading = false;
+            Console.WriteLine("Please set Console font size to 28, enable bold fonts and set to fullscreen for best viewing experience visual glitches may occur otherwise\n Press any enter to continue");
+            Console.ReadLine();
+            Console.Clear();
             MainMenu();
 
-            while (gameRunning == true)
+            while (gameRunning == true)//This loop allows the game to run continuosly until the player quits. Probably could be done more efficiently
             {
                 if (changingLevel == false)
                 {
@@ -44,14 +46,18 @@ namespace RougelikeGame
                 }
             }
         }
-        public static void MainMenu()
+        public static void MainMenu()//Allows the user to start a new game or load a previous one
         {
             Console.ForegroundColor = ConsoleColor.White;
             choiceChosen = false;
             string title = "▄▄▄█████▓▓█████ ▒██   ██▒▄▄▄█████▓     ▄████  ▄▄▄       ███▄ ▄███▓▓█████     ▄▄▄        ▄████  ▄▄▄       ██▓ ███▄    █ \n▓  ██▒ ▓▒▓█   ▀ ▒▒ █ █ ▒░▓  ██▒ ▓▒    ██▒ ▀█▒▒████▄    ▓██▒▀█▀ ██▒▓█   ▀    ▒████▄     ██▒ ▀█▒▒████▄    ▓██▒ ██ ▀█   █ \n▒ ▓██░ ▒░▒███   ░░  █   ░▒ ▓██░ ▒░   ▒██░▄▄▄░▒██  ▀█▄  ▓██    ▓██░▒███      ▒██  ▀█▄  ▒██░▄▄▄░▒██  ▀█▄  ▒██▒▓██  ▀█ ██▒\n░ ▓██▓ ░ ▒▓█  ▄  ░ █ █ ▒ ░ ▓██▓ ░    ░▓█  ██▓░██▄▄▄▄██ ▒██    ▒██ ▒▓█  ▄    ░██▄▄▄▄██ ░▓█  ██▓░██▄▄▄▄██ ░██░▓██▒  ▐▌██▒\n  ▒██▒ ░ ░▒████▒▒██▒ ▒██▒  ▒██▒ ░    ░▒▓███▀▒ ▓█   ▓██▒▒██▒   ░██▒░▒████▒    ▓█   ▓██▒░▒▓███▀▒ ▓█   ▓██▒░██░▒██░   ▓██░\n  ▒ ░░   ░░ ▒░ ░▒▒ ░ ░▓ ░  ▒ ░░       ░▒   ▒  ▒▒   ▓▒█░░ ▒░   ░  ░░░ ▒░ ░    ▒▒   ▓▒█░ ░▒   ▒  ▒▒   ▓▒█░░▓  ░ ▒░   ▒ ▒ \n    ░     ░ ░  ░░░   ░▒ ░    ░         ░   ░   ▒   ▒▒ ░░  ░      ░ ░ ░  ░     ▒   ▒▒ ░  ░   ░   ▒   ▒▒ ░ ▒ ░░ ░░   ░ ▒░\n  ░         ░    ░    ░    ░         ░ ░   ░   ░   ▒   ░      ░      ░        ░   ▒   ░ ░   ░   ░   ▒    ▒ ░   ░   ░ ░ \n            ░  ░ ░    ░                    ░       ░  ░       ░      ░  ░         ░  ░      ░       ░  ░ ░           ░ \n";
             Console.WriteLine(title);
-            Console.WriteLine("\n1.Start new game\n2. Load Game\n3.How to play\n4.Exit");
-            Console.WriteLine("What do you want to do?");
+            Console.WriteLine("1.Start new game\n2.Load Game");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("3.How to play");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("4.Exit");
+            Console.WriteLine("\nPress 1,2,3 or 4");
             var key = Console.ReadKey().Key;
             while (choiceChosen == false)
             {
@@ -68,7 +74,6 @@ namespace RougelikeGame
                     player.InitialiseObjects();
                     mapMaker.CreateMap();
                     mapMaker.SpawnEnemys();
-                    player.dead = false;
                     gameRunning = true;
                     if (Directory.Exists(filePath))
                     {
@@ -80,14 +85,9 @@ namespace RougelikeGame
                     }
                     Console.CursorVisible = false;
                 }
-                else if (key == ConsoleKey.D2)
+                else if (key == ConsoleKey.D2)//Loading a game requires the user to press a key for the player and enemies to appear on screen not sure why
                 {
-                    if (!Directory.Exists(filePath))
-                    {
-                        Console.WriteLine("No Save Found");
-                        key = Console.ReadKey().Key;
-                    }
-                    else
+                    if (File.Exists(filePath + "save1.txt"))
                     {
                         gameRunning = true;
                         choiceChosen = true;
@@ -97,7 +97,6 @@ namespace RougelikeGame
                         choiceChosen = true;
                         player.maxHealth = 10;
                         player.InitialiseObjects();
-                        player.dead = false;
                         mapMaker.SpawnEnemys();
                         LoadGame();
                         mapMaker.SpawnCapybara();
@@ -106,6 +105,12 @@ namespace RougelikeGame
                         Console.CursorVisible = false;
                         mapMaker.loading = false;
                         
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Save Found");
+                        key = Console.ReadKey().Key;
+
                     }
                 }
                 else if (key == ConsoleKey.D3)
@@ -128,16 +133,20 @@ namespace RougelikeGame
             }
 
         }
-        static void HelpMenu()
+        static void HelpMenu()//Displays helpful information for new players
         {
             bool choiceChosen = false;
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.Blue;
             string title = " ██░ ██  ▒█████   █     █░   ▄▄▄█████▓ ▒█████      ██▓███   ██▓    ▄▄▄     ▓██   ██▓\n▓██░ ██▒▒██▒  ██▒▓█░ █ ░█░   ▓  ██▒ ▓▒▒██▒  ██▒   ▓██░  ██▒▓██▒   ▒████▄    ▒██  ██▒\n▒██▀▀██░▒██░  ██▒▒█░ █ ░█    ▒ ▓██░ ▒░▒██░  ██▒   ▓██░ ██▓▒▒██░   ▒██  ▀█▄   ▒██ ██░\n░▓█ ░██ ▒██   ██░░█░ █ ░█    ░ ▓██▓ ░ ▒██   ██░   ▒██▄█▓▒ ▒▒██░   ░██▄▄▄▄██  ░ ▐██▓░\n░▓█▒░██▓░ ████▓▒░░░██▒██▓      ▒██▒ ░ ░ ████▓▒░   ▒██▒ ░  ░░██████▒▓█   ▓██▒ ░ ██▒▓░\n ▒ ░░▒░▒░ ▒░▒░▒░ ░ ▓░▒ ▒       ▒ ░░   ░ ▒░▒░▒░    ▒▓▒░ ░  ░░ ▒░▓  ░▒▒   ▓▒█░  ██▒▒▒ \n ▒ ░▒░ ░  ░ ▒ ▒░   ▒ ░ ░         ░      ░ ▒ ▒░    ░▒ ░     ░ ░ ▒  ░ ▒   ▒▒ ░▓██ ░▒░ \n ░  ░░ ░░ ░ ░ ▒    ░   ░       ░      ░ ░ ░ ▒     ░░         ░ ░    ░   ▒   ▒ ▒ ░░\n ░  ░  ░    ░ ░      ░                    ░ ░                  ░  ░     ░  ░░ ░     \n                                                                            ░ ░     ";
             Console.WriteLine(title);
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Use the arrow keys to move around and 1-3 to change weapon (if you have them)");
-            Console.WriteLine("Visit the Capybara (" + (char)2 + ") to find your quest for the level.\nThen return to the Capybara to move to the next level");
-            Console.WriteLine("When fighting an enemy press E to attack, press R to heal(healing will use up your turn) and Q to quit the fight");
+            Console.WriteLine("Visit the Capybara (" + (char)2 + ") to find your quest for the level.\nThen return to the Capybara once the quest is complete to move to the next level.");
+            Console.WriteLine("Find items in the bushes that will assist you on your mission.");
+            Console.WriteLine("When fighting an enemy you will be unable to move till you kill, are killed or run away.\nPress E to attack, press R to heal(healing will use up your turn) and Q to quit the fight");
             Console.WriteLine("If you quit from a fight enemies will heal health over time");
+            Console.WriteLine("If you die the game will restart");
+            Console.WriteLine("Press Escape to pause the game");
             Console.WriteLine("Press Enter to return to menu");
             var key = Console.ReadKey().Key;
             while (choiceChosen == false)
@@ -185,7 +194,7 @@ namespace RougelikeGame
                 Console.WriteLine("You collected " + player.coins + " what a failure!");
             }
             Console.WriteLine("\n1.Retrun to menu\n2.Exit");
-            Console.WriteLine("What do you want to do?");
+            Console.WriteLine("Press 1 or 2");
             changingLevel = true;
             var choice = Console.ReadKey().Key;
             if (choice == ConsoleKey.D1)

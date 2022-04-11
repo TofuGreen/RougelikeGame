@@ -22,7 +22,7 @@ namespace RougelikeGame
         public bool loading;
         ConsoleColor Lettercolour;
 
-        public void CreateMap()
+        public void CreateMap()//Builds a new map and sets what level type it is
         {
             Random rnd = new Random();
             if(difficulty % 5 == 0 && difficulty != 0)
@@ -74,19 +74,6 @@ namespace RougelikeGame
                                 map[x, y] = 3;
                             }
                         }
-                        else
-                        {
-                            randomItem = rnd.Next(1, 100);
-                            if(randomItem == 10)
-                            {
-                                //map[x, y] = 4;
-                            }
-                            if(randomItem == 20)
-                            {
-                                //map[x, y] = 6;
-                            }
-                        }
-
                     }
                     
                 }
@@ -116,7 +103,7 @@ namespace RougelikeGame
             }
             DisplayMap();
         }
-        public void ClearRoom()
+        public void ClearRoom()//Removes the current map
         {
 
             for (int y = 0; y <= height; y++)
@@ -127,7 +114,7 @@ namespace RougelikeGame
                 }
             }
         }
-        public void SpawnEnemys()
+        public void SpawnEnemys()//Spawns in enemies amount varies depending on difficulty. There values are also initialised in this method
         {
             Random rnd = new Random();
             if (level != 3)
@@ -182,7 +169,7 @@ namespace RougelikeGame
                 }
             }
         }
-        public void SpawnCapybara()
+        public void SpawnCapybara()//Spawns in the capybara quest giver and provides its variables with data
         {
             capy = new Capybara();
             Program.capy = capy;
@@ -195,7 +182,7 @@ namespace RougelikeGame
             capy.MissionText();
         }
 
-        public void DisplayMap()
+        public void DisplayMap()//Displays the map array on the screen
         {
             int posX;
             int posY;
@@ -215,11 +202,6 @@ namespace RougelikeGame
                     {
                         character = ' ';
                     }
-                    if (map[x, y] == 5)
-                    {
-                        Lettercolour = ConsoleColor.DarkGreen;
-                        character = '█';
-                    }
                     if (map[x, y] == 2)
                     {
                         Lettercolour = ConsoleColor.Red;
@@ -229,11 +211,6 @@ namespace RougelikeGame
                     {
                         character = '#';
                         Lettercolour = ConsoleColor.Green;
-                    }
-                    if(map[x,y] == 4)
-                    {
-                        character = 'P';
-                        Lettercolour = ConsoleColor.Blue;
                     }
                     if(map[x,y] == 10)
                     {
@@ -246,7 +223,7 @@ namespace RougelikeGame
                 }
             }
         }
-        public static void WriteCharacter(char character, int x, int y, ConsoleColor colour)
+        public static void WriteCharacter(char character, int x, int y, ConsoleColor colour)//Displays characters(This part might have ended up being unecessary)
         {
             try
             {
