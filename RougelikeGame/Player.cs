@@ -7,7 +7,6 @@ namespace RougelikeGame
 {
    public class Player
    { 
-        public static string currentpossymbol;
         public static char character = '@';
         public int x;
         public int y;
@@ -51,9 +50,9 @@ namespace RougelikeGame
             coins = 0;
         }
 
+
         public void Movement()//Controls player movement along with other things such as changing weapon and pausing/saving
         {
-
             WriteCharacter(character, x, y, colour);
             DisplayStats();
             if (fighting == false && engaged == false)
@@ -77,8 +76,6 @@ namespace RougelikeGame
                                 canMove = false;
                             }
                             break;
-
-
                         case ConsoleKey.DownArrow:
                             
                                 if (mapGen.map[x, y + 1] == 0 || mapGen.map[x, y + 1] == 3)
@@ -185,10 +182,6 @@ namespace RougelikeGame
                                 Console.Write("                                     ");
                             }
                             break;
-                        default:
-
-                            break;
-                    
                     }
                 }
                 if (mapGen.map[prevX, prevY] == 1)
@@ -217,7 +210,6 @@ namespace RougelikeGame
                     colour = ConsoleColor.White;
                     WriteCharacter(character, x, y, colour);
                 }
-
             }
             else
             {
@@ -227,6 +219,8 @@ namespace RougelikeGame
                 }
             }
         }
+
+
         public void DisplayStats()//Prints the information the player needs on the screeen (most likely overengineered)
         {
             Console.SetCursorPosition(101, 0);
@@ -324,6 +318,8 @@ namespace RougelikeGame
             catch(Exception) { 
             }
         }
+        
+
         public void Fight()//Controls fighting between the player and the enemy
         {
             if (Console.KeyAvailable)
@@ -460,13 +456,11 @@ namespace RougelikeGame
                         Thread.Sleep(1000);
                         Console.SetCursorPosition(101, 1);
                         Console.WriteLine("                        ");
-                    }
-                    
+                    } 
                 }
-            
-         
             }
         }
+
 
         public void Interaction()//Controls what items the player should recieve when walking through the bushes
         {
@@ -535,8 +529,6 @@ namespace RougelikeGame
                         item = "health trinket";
                     }
                 }
-                
-
             }
             else
             {
@@ -570,6 +562,8 @@ namespace RougelikeGame
                 }
             }
         }
+
+
         public void Engage(string item, ConsoleColor colour)//If the player finds a weapon they do not have this function will pause the game to allow the player to decide if they want to equip it
         {
             bool choiceChosen = false;
@@ -636,6 +630,8 @@ namespace RougelikeGame
                 }
             }
         }
+
+
         public void Quit()//Returns the player to the main menu but saves the game first
         {
             bool choiceChosen = false;

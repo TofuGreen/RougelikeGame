@@ -3,33 +3,33 @@
   <Class Name="RougelikeGame.Program">
     <Position X="10.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAAAAIQACwAAAAAAAAwAAAAAUABAAAARAACAAE=</HashCode>
+      <HashCode>AAAAAAAAAAIQACwAAAAAAAAwAAAAAUABAAAARAACAAE=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RougelikeGame.Enemy">
-    <Position X="8.25" Y="5" Width="1.5" />
+    <Position X="8.25" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EACMAEqIAAAg4YAABBgAAgBBAAECQAAlAABwABAAAAg=</HashCode>
       <FileName>Enemy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RougelikeGame.Player">
-    <Position X="14" Y="5.25" Width="1.5" />
+    <Position X="12.25" Y="10.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EgSMBAIIACApQoiIBBAAgAogGAAAAAAIAABwEQCQAQg=</HashCode>
+      <HashCode>EgSMAAIIACApQoiIBBAAgAogGAAAAAAAAABwEQCQAQg=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RougelikeGame.MapGenerator3">
     <Position X="10.25" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIEAARAAQAAIwgwAAQAAAgAEGAIAAAAAgQAAAAEAA=</HashCode>
+      <HashCode>AAAIEAARAAQAAIwgwAAQAAAgAEGAIAAAAAgAAAAAEAA=</HashCode>
       <FileName>MapGenerator3.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RougelikeGame.Capybara">
-    <Position X="12" Y="5" Width="1.5" />
+    <Position X="10.25" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEEABBAAAAAAAAAAAKgAAAAQEAAEABAAAAAAAAAAQ=</HashCode>
       <FileName>Capybara.cs</FileName>

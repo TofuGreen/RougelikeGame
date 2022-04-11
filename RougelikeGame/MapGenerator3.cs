@@ -22,6 +22,7 @@ namespace RougelikeGame
         public bool loading;
         ConsoleColor Lettercolour;
 
+        
         public void CreateMap()//Builds a new map and sets what level type it is
         {
             Random rnd = new Random();
@@ -45,7 +46,6 @@ namespace RougelikeGame
             int y;
             int currentCapy = 0;
             int bushChance;
-            int randomItem;
             int capyChance;
             for (y = 0; y <= height; y++)
             {
@@ -103,6 +103,8 @@ namespace RougelikeGame
             }
             DisplayMap();
         }
+        
+        
         public void ClearRoom()//Removes the current map
         {
 
@@ -114,6 +116,8 @@ namespace RougelikeGame
                 }
             }
         }
+        
+        
         public void SpawnEnemys()//Spawns in enemies amount varies depending on difficulty. There values are also initialised in this method
         {
             Random rnd = new Random();
@@ -169,6 +173,8 @@ namespace RougelikeGame
                 }
             }
         }
+        
+        
         public void SpawnCapybara()//Spawns in the capybara quest giver and provides its variables with data
         {
             capy = new Capybara();
@@ -182,6 +188,7 @@ namespace RougelikeGame
             capy.MissionText();
         }
 
+        
         public void DisplayMap()//Displays the map array on the screen
         {
             int posX;
@@ -221,24 +228,6 @@ namespace RougelikeGame
                     Console.ForegroundColor = Lettercolour;
                     Console.Write(character);
                 }
-            }
-        }
-        public static void WriteCharacter(char character, int x, int y, ConsoleColor colour)//Displays characters(This part might have ended up being unecessary)
-        {
-            try
-            {
-                if (x >= 0 || y >= 0)
-                {
-                    Console.SetCursorPosition(x, y);
-                    Console.ForegroundColor = colour;
-                    Console.Write(character);
-
-
-                }
-            }
-            catch (Exception)
-            {
-
             }
         }
     }

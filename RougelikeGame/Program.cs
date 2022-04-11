@@ -15,6 +15,8 @@ namespace RougelikeGame
         public static bool changingLevel;
         public const string pathWithEnv = @"%USERPROFILE%\AppData\Local\TextGameAgain\SaveFile\";
         public static string filePath = Environment.ExpandEnvironmentVariables(pathWithEnv);
+        
+        
         static void Main(string[] args)
         {
 
@@ -26,7 +28,7 @@ namespace RougelikeGame
             capy.map = mapMaker;
             gameRunning = false;
             mapMaker.loading = false;
-            Console.WriteLine("Please set Console font size to 28, enable bold fonts and set to fullscreen for best viewing experience visual glitches may occur otherwise\n Press any enter to continue");
+            Console.WriteLine("Please set Console font size to 28, enable bold fonts and set to fullscreen for best viewing experience visual glitches may occur otherwise\n Press enter to continue");
             Console.ReadLine();
             Console.Clear();
             MainMenu();
@@ -38,14 +40,13 @@ namespace RougelikeGame
                     player.Movement();
                     for (int i = 0; i < mapMaker.enemyArray.Length; i++)
                     {
-
                         mapMaker.enemyArray[i].Movement(mapMaker.map);
-
                     }
-                    
                 }
             }
         }
+        
+        
         public static void MainMenu()//Allows the user to start a new game or load a previous one
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -101,10 +102,9 @@ namespace RougelikeGame
                         LoadGame();
                         mapMaker.SpawnCapybara();
                         mapMaker.DisplayMap();
-                        capy.Mission();
+                        capy.Mission();//This causes the player to know how many enemies/coins they need even if they didnt previously
                         Console.CursorVisible = false;
                         mapMaker.loading = false;
-                        
                     }
                     else
                     {
@@ -133,6 +133,8 @@ namespace RougelikeGame
             }
 
         }
+        
+        
         static void HelpMenu()//Displays helpful information for new players
         {
             bool choiceChosen = false;
@@ -163,7 +165,9 @@ namespace RougelikeGame
                 }
             }
         }
-        public static void DeathScreen()
+        
+        
+        public static void DeathScreen()//Displays the death screen with how many coins the player collected until they died (my version of xp/points I guess)
         {
             if (Directory.Exists(filePath))
             {
@@ -191,9 +195,9 @@ namespace RougelikeGame
             }
             if(player.coins < 100)
             {
-                Console.WriteLine("You collected " + player.coins + " what a failure!");
+                Console.WriteLine("You collected " + player.coins + " what a failiure!");
             }
-            Console.WriteLine("\n1.Retrun to menu\n2.Exit");
+            Console.WriteLine("\n1.Return to menu\n2.Exit");
             Console.WriteLine("Press 1 or 2");
             changingLevel = true;
             var choice = Console.ReadKey().Key;
@@ -215,8 +219,9 @@ namespace RougelikeGame
                 Console.WriteLine("What do you want to do?");
                 choice = Console.ReadKey().Key;
             }
-
         }
+        
+        
         public static void SaveGame()//Saves all data to a serialized file .txt is used but it could really be anything
         {
             if (!Directory.Exists(filePath))
@@ -249,7 +254,7 @@ namespace RougelikeGame
             }
         }
         
-
+        
         static void LoadGame()//Reads all the data from the serialized file back into the correct varialbes
         {
             Stream openFileStream = File.OpenRead(filePath + "save1.txt");

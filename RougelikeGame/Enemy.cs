@@ -23,7 +23,7 @@ namespace RougelikeGame
         int currentPathLength;
         public int direction;
         public int ID;
-        public ConsoleColor colour = ConsoleColor.Red;
+        public ConsoleColor colour;
         Random rnd = new Random();
         public bool inbattle;
         long DelayBetweenEnemyMoves = 200;
@@ -44,7 +44,9 @@ namespace RougelikeGame
             lastTime = 0;
             WriteCharacter(character, x, y, colour);
         }
-        public void Movement(int[,] map)
+        
+        
+        public void Movement(int[,] map)//Enemy moves randomly in one direction for a certain distance before changing direction
         {
             long currentTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             WriteCharacter(character, x, y, colour);
@@ -188,7 +190,9 @@ namespace RougelikeGame
                 Damage();
             }
         }
-        public void DisplayEnemyStats()
+        
+        
+        public void DisplayEnemyStats()//Displays enemy health during a fight
         {
             Console.SetCursorPosition(101, 23);
             Console.ForegroundColor = ConsoleColor.Red;
@@ -199,9 +203,11 @@ namespace RougelikeGame
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("Health: " + health);
         }
-        public void Damage()
+        
+        
+        public void Damage()//Allows the enemy to attack the player and displays the correct menu if the player is killed
         {
-            
+            int damage;
             if (player.fighting == false && quitFight == false)
             {
                 if ((x - 1 == player.x || x+1 == player.x || x== player.x) && (y - 1 == player.y || y + 1 == player.y || y == player.y))
@@ -217,7 +223,14 @@ namespace RougelikeGame
             if(inbattle == true && enemyTurn == true)
             {
                 DisplayEnemyStats();
-                int damage = rnd.Next(1, (1 + (mapGen.difficulty)));
+                if (mapGen.level == 3)
+                {
+                    damage = rnd.Next(1, (3 + mapGen.difficulty));
+                }
+                else
+                {
+                    damage = rnd.Next(1, (1 + (mapGen.difficulty)));
+                }
                 if(damage > 8)
                 {
                     damage = 8;
@@ -247,6 +260,8 @@ namespace RougelikeGame
                 
             }
         }
+        
+        
         public static void WriteCharacter(char character, int x, int y, ConsoleColor colour)
         {
             try
@@ -265,7 +280,9 @@ namespace RougelikeGame
 
             }
         }
-        public void SaveEnemy()
+        
+        
+        public void SaveEnemy()//Saves the enemy to a specific file depending on what number it is (this could probably have been added to the main save function but it was easier this way to make sure the right enemies had the right data)
         {
             Stream saveFileStream = File.Create(Program.filePath + "save1Enemy"+ ID +".txt");
             BinaryFormatter serializer = new BinaryFormatter();
@@ -277,7 +294,9 @@ namespace RougelikeGame
             serializer.Serialize(saveFileStream, character);
             saveFileStream.Close();
         }
-        public void LoadEnemy()
+        
+        
+        public void LoadEnemy()//Loads the data from the correctly numbered enemy save file
         {
             Stream openFileStream = File.OpenRead(Program.filePath + "save1Enemy" + ID + ".txt");
             BinaryFormatter deserializer = new BinaryFormatter();
