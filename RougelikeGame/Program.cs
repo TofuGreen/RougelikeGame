@@ -14,7 +14,7 @@ namespace RougelikeGame
         public static int enemyCount;
         public static bool changingLevel;
         static Random rnd = new Random();
-        public const string pathWithEnv = @"%USERPROFILE%\AppData\Local\TextGameAgain\";
+        public const string pathWithEnv = @"%USERPROFILE%\AppData\Local\TextGameAgain\SaveFile\";
         public static string filePath = Environment.ExpandEnvironmentVariables(pathWithEnv);
         static void Main(string[] args)
         {
@@ -89,6 +89,7 @@ namespace RougelikeGame
                     }
                     else
                     {
+                        gameRunning = true;
                         choiceChosen = true;
                         Console.Clear();
                         mapMaker.loading = true;
@@ -101,9 +102,10 @@ namespace RougelikeGame
                         LoadGame();
                         mapMaker.SpawnCapybara();
                         mapMaker.DisplayMap();
-                        gameRunning = true;
+                        capy.Mission();
                         Console.CursorVisible = false;
                         mapMaker.loading = false;
+                        
                     }
                 }
                 else if (key == ConsoleKey.D3)
@@ -178,24 +180,22 @@ namespace RougelikeGame
             {
                 Console.WriteLine("You collected " + player.coins + " you are a legend!");
             }
-            else
+            if(player.coins < 100)
             {
                 Console.WriteLine("You collected " + player.coins + " what a failure!");
             }
             Console.WriteLine("\n1.Retrun to menu\n2.Exit");
             Console.WriteLine("What do you want to do?");
             changingLevel = true;
-            string choice = Console.ReadLine();
-            if (choice == "1")
+            var choice = Console.ReadKey().Key;
+            if (choice == ConsoleKey.D1)
             {
                 choiceChosen = true;
                 Console.Clear();
                 mapMaker.ClearRoom();
                 MainMenu();
-                //changingLevel = true;
-
             }
-            else if (choice == "2")
+            else if (choice == ConsoleKey.D2)
             {
                 choiceChosen = true;
                 System.Environment.Exit(1);
@@ -204,7 +204,7 @@ namespace RougelikeGame
             {
                 Console.WriteLine("That is an invalid answer");
                 Console.WriteLine("What do you want to do?");
-                choice = Console.ReadLine();
+                choice = Console.ReadKey().Key;
             }
 
         }
@@ -232,6 +232,7 @@ namespace RougelikeGame
             serializer.Serialize(saveFileStream, mapMaker.level);
             serializer.Serialize(saveFileStream, mapMaker.difficulty);
             serializer.Serialize(saveFileStream, capy.requiredEnemies);
+            serializer.Serialize(saveFileStream, capy.requiredCoins);
             saveFileStream.Close();
             for(int i = 0; i < mapMaker.enemyArray.Length; i++)
             {
@@ -260,6 +261,7 @@ namespace RougelikeGame
             mapMaker.level = (int)deserializer.Deserialize(openFileStream);
             mapMaker.difficulty = (int)deserializer.Deserialize(openFileStream);
             capy.requiredEnemies = (int)deserializer.Deserialize(openFileStream);
+            capy.requiredCoins = (int)deserializer.Deserialize(openFileStream);
             openFileStream.Close();
             for (int i = 0; i < mapMaker.enemyArray.Length; i++)
             {

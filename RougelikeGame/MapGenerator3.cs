@@ -25,20 +25,21 @@ namespace RougelikeGame
         public void CreateMap()
         {
             Random rnd = new Random();
-            if(difficulty % 5 == 0)
+            if(difficulty % 5 == 0 && difficulty != 0)
             {
-                if (difficulty == 0)
-                {
-                    level = rnd.Next(1, 3);
-                }
-                else
-                {
                     level = 3;
-                }
             }
             else
             {
-                level = rnd.Next(1, 3);
+                int levelChance = rnd.Next(1, 100);
+                if(levelChance >= 1 && levelChance <= 60)
+                {
+                    level = 1;
+                }
+                else
+                {
+                    level = 2;
+                }
             }
             int x;
             int y;
@@ -56,7 +57,7 @@ namespace RougelikeGame
                     }
                     else
                     {
-                        bushChance = rnd.Next(1, 40+(difficulty*3));
+                        bushChance = rnd.Next(1, 40+(difficulty*2));
                         if (bushChance == 1)
                         {
                             map[x, y] = 3;
@@ -184,6 +185,7 @@ namespace RougelikeGame
         public void SpawnCapybara()
         {
             capy = new Capybara();
+            Program.capy = capy;
             capy.level = level;
             capy.difficulty = difficulty;
             capyPlayer.capy = capy;

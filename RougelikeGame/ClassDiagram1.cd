@@ -1,52 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="RougelikeGame.Consumable">
-    <Position X="9.75" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Consumable.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="RougelikeGame.Armour">
-    <Position X="7" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAI=</HashCode>
-      <FileName>Armour.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="RougelikeGame.Weapon">
-    <Position X="12.25" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Weapon.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="RougelikeGame.Item">
-    <Position X="9.75" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEACAgAABAAAAAAAA=</HashCode>
-      <FileName>Item.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="RougelikeGame.Program">
-    <Position X="7.25" Y="0.5" Width="1.5" />
+    <Position X="10.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQAACQAAAAAAAAwAAAAAAABAAAABAAAAAA=</HashCode>
+      <HashCode>AAAEAAAAAAIQACwAAAAAAAAwAAAAAUABAAAARAACAAE=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="RougelikeGame.Snake">
-    <Position X="3.75" Y="4.25" Width="1.5" />
+  <Class Name="RougelikeGame.Enemy">
+    <Position X="8.25" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
-      <FileName>Snake.cs</FileName>
+      <HashCode>EACMAEqIAAAg4YAABBgAAgBBAAECQAAlAABwABAAAAg=</HashCode>
+      <FileName>Enemy.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="RougelikeGame.Enemy">
-    <Position X="2.75" Y="0.5" Width="1.5" />
+  <Class Name="RougelikeGame.Player">
+    <Position X="14" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EACIAAIAAAAgQAAABAAAAAABAAAAAAAAAABwQAAAAAA=</HashCode>
-      <FileName>Enemy.cs</FileName>
+      <HashCode>EgSMBAIIACApQoiIBBAAgAogGAAAAAAIAABwEQCQAQg=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RougelikeGame.MapGenerator3">
+    <Position X="10.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIEAARAAQAAIwgwAAQAAAgAEGAIAAAAAgQAAAAEAA=</HashCode>
+      <FileName>MapGenerator3.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RougelikeGame.Capybara">
+    <Position X="12" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEEABBAAAAAAAAAAAKgAAAAQEAAEABAAAAAAAAAAQ=</HashCode>
+      <FileName>Capybara.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

@@ -398,7 +398,6 @@ namespace RougelikeGame
                                 healthItems -= 1;
                                 playerTurn = false;
                                 fightingEnemy.enemyTurn = true;
-                                DisplayStats();
                                 Console.SetCursorPosition(0, 25);
                                 Console.Write(new string(' ', Console.WindowWidth));
                                 Console.SetCursorPosition(0, 25);
@@ -440,11 +439,19 @@ namespace RougelikeGame
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.Write("You left the battle and took " + quitDamage + " damage in your escape");
                         health -= quitDamage;
+                        
+                        if (health <= 0)
+                        {
+                            Console.Clear();
+                            Program.DeathScreen();
+                        }
                         Console.SetCursorPosition(101, 23);
                         Console.Write("                                   ");
                         Console.SetCursorPosition(101, 24);
                         Console.Write("                                  ");
                         Thread.Sleep(1000);
+                        Console.SetCursorPosition(101, 1);
+                        Console.WriteLine("                        ");
                     }
                     
                 }

@@ -73,7 +73,7 @@ namespace RougelikeGame
             player.capyCoins = 0;
             map.difficulty++;
             requiredEnemies = 0;
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
             map.ClearRoom();
             map.CreateMap();
             Program.changingLevel = false;

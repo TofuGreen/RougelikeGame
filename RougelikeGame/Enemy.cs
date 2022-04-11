@@ -239,7 +239,7 @@ namespace RougelikeGame
                     Console.SetCursorPosition(0, 25);
                     Console.WriteLine("                                              ");
                     Console.SetCursorPosition(101, 1);
-                    Console.WriteLine("                      ");
+                    Console.WriteLine("                        ");
                     Console.SetCursorPosition(player.x, player.y);
                     enemyTurn = false;
                     player.playerTurn = true;
