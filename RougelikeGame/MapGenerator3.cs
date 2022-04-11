@@ -4,33 +4,48 @@ using System.Text;
 using System.Threading;
 namespace RougelikeGame
 {
-    class MapGenerator3
+    public class MapGenerator3
     {
         public static int width = 100;
         public static int height = 25;
         public int[,] map = new int[width + 1, height + 1];
+        public int level;
+        public int difficulty = 0;
         public static char character;
-        public static int roomMaxCount;
         public int startX = 5;
         public int startY = 5;
         public int enemyNumber = 0;
-        public Snake[] enemyArray = new Snake[50];
+        public Enemy[] enemyArray;
+        public Player capyPlayer;
+        public Capybara capy;
         public static bool spawnPointSet = false;
-        public static int currentEnemyCount;
-        public static int enemyCount;
-        bool endPointSet = false;
-
+        public bool loading;
         ConsoleColor Lettercolour;
 
         public void CreateMap()
         {
-            bool clearRoom = false;
             Random rnd = new Random();
-            int x = 0;
-            int y = 0;
-            int number = 0;
-            bool noBush = false;
+            if(difficulty % 5 == 0)
+            {
+                if (difficulty == 0)
+                {
+                    level = rnd.Next(1, 3);
+                }
+                else
+                {
+                    level = 3;
+                }
+            }
+            else
+            {
+                level = rnd.Next(1, 3);
+            }
+            int x;
+            int y;
+            int currentCapy = 0;
             int bushChance;
+            int randomItem;
+            int capyChance;
             for (y = 0; y <= height; y++)
             {
                 for  (x = 0; x <= width; x++)
@@ -41,7 +56,7 @@ namespace RougelikeGame
                     }
                     else
                     {
-                        bushChance = rnd.Next(1, 40);
+                        bushChance = rnd.Next(1, 40+(difficulty*3));
                         if (bushChance == 1)
                         {
                             map[x, y] = 3;
@@ -50,38 +65,133 @@ namespace RougelikeGame
                         {
                             map[x, y] = 0;
                         }
-                        if (map[x - 1, y] == 3 || map[x,y-1] == 3)
+                        if (map[x - 1, y] == 3 || map[x, y - 1] == 3)
                         {
                             bushChance = rnd.Next(1, 10);
                             if (bushChance > 6)
                             {
                                 map[x, y] = 3;
                             }
-                            else
+                        }
+                        else
+                        {
+                            randomItem = rnd.Next(1, 100);
+                            if(randomItem == 10)
                             {
-                                
+                                //map[x, y] = 4;
+                            }
+                            if(randomItem == 20)
+                            {
+                                //map[x, y] = 6;
                             }
                         }
-                        
+
                     }
                     
                 }
 
             }
+            while (currentCapy < 1)
+            {
+                for (y = 0; y <= height; y++)
+                {
+                    for (x = 0; x <= width; x++)
+                    {
+                        if (currentCapy < 1)
+                        {
+                            if (map[x, y] == 0)
+                            {
+                                capyChance = rnd.Next(1, 50);
+                                if (capyChance == 1)
+                                {
+                                    map[x, y] = 10;
+                                    SpawnCapybara();
+                                    currentCapy++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             DisplayMap();
-            SpawnSnakes();
         }
-
-
-        public void SpawnSnakes()
+        public void ClearRoom()
         {
-            Snake enemy = new Snake();
-            enemy.spawnX = 10;
-            enemy.spawnY = 10;
-            enemy.gameRunning = true;
-            enemy.Movement(1, map);
-        }
 
+            for (int y = 0; y <= height; y++)
+            {
+                for (int x = 0; x <= width; x++)
+                {
+                    map[x, y] = 0;
+                }
+            }
+        }
+        public void SpawnEnemys()
+        {
+            Random rnd = new Random();
+            if (level != 3)
+            {
+                enemyArray = new Enemy[5 + (difficulty * 2)];
+                for (int i = 0; i < 5 + (difficulty * 2); i++)
+                {
+                    if (enemyArray[i] != null)
+                    {
+                        Array.Clear(enemyArray, i, i);
+                    }
+                    enemyArray[i] = new Enemy();
+                    enemyArray[i].maxHealth = 3 + (difficulty * 2);
+                    if (loading == false)
+                    {
+
+                        enemyArray[i].x = rnd.Next(5, 85);
+                        enemyArray[i].y = rnd.Next(5, 23);
+                    }          
+                    enemyArray[i].mapGen = this;
+                    enemyArray[i].direction = rnd.Next(1, 5);
+                    enemyArray[i].pathLength = rnd.Next(3, 15);
+                    enemyArray[i].ID = i;
+                    enemyArray[i].player = capyPlayer;
+                    enemyArray[i].Initialise();
+                }
+            }
+            else
+            {
+                enemyArray = new Enemy[1];
+                for (int i = 0; i < 1; i++)
+                {
+                    if (enemyArray[i] != null)
+                    {
+                        Array.Clear(enemyArray, i, i);
+                    }
+                    enemyArray[i] = new Enemy();
+                    enemyArray[i].maxHealth = 10 + (difficulty * 2);
+                    if (loading == false)
+                    {
+
+                        enemyArray[i].x = rnd.Next(5, 85);
+                        enemyArray[i].y = rnd.Next(5, 23);
+                    }
+                    enemyArray[i].mapGen = this;
+                    enemyArray[i].direction = rnd.Next(1, 5);
+                    enemyArray[i].pathLength = rnd.Next(3, 15);
+                    enemyArray[i].ID = i;
+                    enemyArray[i].player = capyPlayer;
+                    enemyArray[i].Initialise();
+
+                }
+            }
+        }
+        public void SpawnCapybara()
+        {
+            capy = new Capybara();
+            capy.level = level;
+            capy.difficulty = difficulty;
+            capyPlayer.capy = capy;
+            capy.player = capyPlayer;
+            capy.map = this;
+            capy.changingLevel = false;
+            capy.MissionText();
+        }
 
         public void DisplayMap()
         {
@@ -117,6 +227,16 @@ namespace RougelikeGame
                     {
                         character = '#';
                         Lettercolour = ConsoleColor.Green;
+                    }
+                    if(map[x,y] == 4)
+                    {
+                        character = 'P';
+                        Lettercolour = ConsoleColor.Blue;
+                    }
+                    if(map[x,y] == 10)
+                    {
+                        character = (char)2;
+                        Lettercolour = ConsoleColor.DarkYellow;
                     }
                     Console.SetCursorPosition(posX, posY);
                     Console.ForegroundColor = Lettercolour;

@@ -9,11 +9,7 @@ namespace RougelikeGame
         public string name;
         public int weight;
         public float value;
-
-
-        public void StatPopUp()
-        {
-
-        }
+        static Random rnd = new Random();
+        public static MapGenerator3 mapDifficulty;
     }
 }
